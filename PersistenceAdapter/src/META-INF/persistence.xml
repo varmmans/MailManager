@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
+  <persistence-unit name="WSMailManager001">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <jta-data-source>java:/app/jdbc/jdbc/CorreosDS</jta-data-source>
+    <class>ec.com.hananeel.mailmanager.adapter.out.persistence.EmailJpaEntity</class>
+    <class>ec.com.hananeel.mailmanager.adapter.out.persistence.ServerJpaEntity</class>
+    <properties>
+      <property name="eclipselink.target-server" value="WebLogic_10"/>
+      <property name="javax.persistence.jtaDataSource" value="java:/app/jdbc/jdbc/CorreosDS"/>
+    </properties>
+  </persistence-unit>
+  <persistence-unit name="PersistenceAdapter" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>ec.com.hananeel.mailmanager.adapter.out.persistence.EmailJpaEntity</class>
+    <class>ec.com.hananeel.mailmanager.adapter.out.persistence.ServerJpaEntity</class>
+    <properties>
+      <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@//186.5.95.58:1521/Hananeel"/>
+      <property name="javax.persistence.jdbc.user" value="envia_correo"/>
+      <property name="javax.persistence.jdbc.password" value="90897CFF6484B072B5D84716BCA4763E"/>
+      <property name="eclipselink.logging.level" value="FINER"/>
+    </properties>
+  </persistence-unit>
+</persistence>
