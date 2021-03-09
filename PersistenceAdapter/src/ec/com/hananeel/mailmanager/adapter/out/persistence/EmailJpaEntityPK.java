@@ -2,29 +2,38 @@ package ec.com.hananeel.mailmanager.adapter.out.persistence;
 
 import java.io.Serializable;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
+import javax.validation.constraints.NotNull;
+
+@Embeddable
 public class EmailJpaEntityPK implements Serializable {
-    @SuppressWarnings("compatibility:-8863493256212102591")
-    private static final long serialVersionUID = 1L;
+
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "MESCODEMP")
+    private Number mescodemp;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "MESCODMES")
     private Number mescodmes;
 
     public EmailJpaEntityPK() {
     }
 
-    public EmailJpaEntityPK(Number mescodmes) {
+    public EmailJpaEntityPK(Number mescodemp, Number mescodmes) {
+        this.mescodemp = mescodemp;
         this.mescodmes = mescodmes;
     }
 
-    public boolean equals(Object other) {
-        if (other instanceof EmailJpaEntityPK) {
-            final EmailJpaEntityPK otherMensajePersistenceAdapterPK = (EmailJpaEntityPK) other;
-            final boolean areEqual = (otherMensajePersistenceAdapterPK.mescodmes.equals(mescodmes));
-            return areEqual;
-        }
-        return false;
+    public Number getMescodemp() {
+        return mescodemp;
     }
 
-    public int hashCode() {
-        return super.hashCode();
+    public void setMescodemp(Number mescodemp) {
+        this.mescodemp = mescodemp;
     }
 
     public Number getMescodmes() {
@@ -34,4 +43,37 @@ public class EmailJpaEntityPK implements Serializable {
     public void setMescodmes(Number mescodmes) {
         this.mescodmes = mescodmes;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (mescodemp != null ? mescodemp.hashCode() : 0);
+        hash += (mescodmes != null ? mescodmes.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof EmailJpaEntityPK)) {
+            return false;
+        }
+        EmailJpaEntityPK other = (EmailJpaEntityPK) object;
+        if ((this.mescodemp == null && other.mescodemp != null) ||
+            (this.mescodemp != null && !this.mescodemp.equals(other.mescodemp))) {
+            return false;
+        }
+        if ((this.mescodmes == null && other.mescodmes != null) ||
+            (this.mescodmes != null && !this.mescodmes.equals(other.mescodmes))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "ec.com.hananeel.mailmanager.adapter.out.persistence.MensajesPK[ mescodemp=" + mescodemp +
+               ", mescodmes=" + mescodmes + " ]";
+    }
+
 }

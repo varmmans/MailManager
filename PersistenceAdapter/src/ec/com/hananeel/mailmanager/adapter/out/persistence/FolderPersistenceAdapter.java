@@ -2,28 +2,32 @@ package ec.com.hananeel.mailmanager.adapter.out.persistence;
 
 import ec.com.hananeel.mailmanager.application.port.out.FolderPort;
 import ec.com.hananeel.mailmanager.exception.AdapterException;
+import ec.com.hananeel.mailmanager.qualifier.PersistenceAdapter;
 
-import java.io.File;
-import java.io.IOException;
+import javax.annotation.Resource;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
+import javax.ejb.EJB;
+import javax.ejb.SessionContext;
+import javax.ejb.Stateless;
 
+@Stateless(name = "FolderPersistenceAdapter", mappedName = "FolderPersistenceAdapter")
+@PersistenceAdapter
 public class FolderPersistenceAdapter implements FolderPort {
+    @Resource
+    SessionContext sessionContext;
+
+    @EJB
+    private FolderRepository folderRepository;
+
+    public FolderPersistenceAdapter() {
+    }
 
     @Override
     public String loadHtmlScript(String folderPath) throws AdapterException {
-        StringBuilder html = new StringBuilder();
-        // Recuperar archivo desde el sistema de archivos del servidor
-        File input = new File(folderPath);
-        if (input.exists())
-            try {
-                Document doc = Jsoup.parse(input, "UTF-8", "");
-                html.append(doc.html());
-            } catch (IOException e) {
-                throw new AdapterException(e);
-            }
-        // Retornar el mensaje HTML completo
-        return html.toString();
+        try {
+            return folderRepository.loadHtmlScript(folderPath);
+        } catch (AdapterException e) {
+            throw e;
+        }
     }
 }

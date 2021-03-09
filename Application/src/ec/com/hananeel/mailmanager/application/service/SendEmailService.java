@@ -3,35 +3,37 @@ package ec.com.hananeel.mailmanager.application.service;
 import ec.com.hananeel.mailmanager.application.port.in.SendEmailUseCase;
 import ec.com.hananeel.mailmanager.application.port.out.EmailPort;
 import ec.com.hananeel.mailmanager.application.port.out.FolderPort;
-import ec.com.hananeel.mailmanager.application.port.out.ServerPort;
 import ec.com.hananeel.mailmanager.domain.Email;
-import ec.com.hananeel.mailmanager.domain.Server;
 import ec.com.hananeel.mailmanager.exception.AdapterException;
 import ec.com.hananeel.mailmanager.exception.ApplicationException;
-import ec.com.hananeel.mailmanager.qualifier.Component;
+import ec.com.hananeel.mailmanager.qualifier.UseCase;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
-import javax.enterprise.context.Dependent;
+import javax.annotation.Resource;
 
-import javax.inject.Inject;
+import javax.ejb.EJB;
+import javax.ejb.SessionContext;
+import javax.ejb.Stateless;
 
-@Component
-@Dependent
+import javax.validation.ConstraintViolationException;
+
+@Stateless(name = "SendEmailService", mappedName = "SendEmailService")
+@UseCase
 public class SendEmailService implements SendEmailUseCase {
+    @Resource
+    SessionContext sessionContext;
+    @EJB
+    private EmailPort emailPort;
+    @EJB
+    private FolderPort folderPort;
 
-    private final ServerPort serverPort;
-    private final EmailPort emailPort;
-    private final FolderPort folderPort;
-
-    @Inject
-    public SendEmailService(@Component ServerPort serverPort, @Component EmailPort emailPort,
-                            @Component FolderPort folderPort) {
-        this.serverPort = serverPort;
-        this.emailPort = emailPort;
-        this.folderPort = folderPort;
+    public SendEmailService() {
     }
 
     @Override
@@ -41,53 +43,43 @@ public class SendEmailService implements SendEmailUseCase {
         List<Email> emailsIncome = emailPort.loadEmailxStatus(Email.Status
                                                                    .PENDING
                                                                    .toString());
-        List<Email> emailsOutcome = new ArrayList<>();
-        String html;
-        Date fechaRegistro = new Date();
+        Map<Email, String> emailsSended = new HashMap<>();
+        Map<Email, String> emailsSaved = new HashMap<>();
+        String body;
 
         // Por cada mensaje cargar información del servidor de correo, usuario, clave
         for (Email email : emailsIncome) {
-            Server.ServerId serverId = new Server.ServerId(email.getCodigoEmpresa(), email.getCodigoServidor());
-            Server server = serverPort.loadServer(serverId);
-            // Elaborar el correo, si es de texto plano enviar, si es Html buscar en carpeta el script
-            if (email.isHtml()) {
-                try {
-                    html = folderPort.loadHtmlScript(email.getCarpetaHtml());
-                } catch (AdapterException e) {
-                    throw new ApplicationException(e);
-                }
+            // Elaborar el correo, si es HTML buscar en carpeta el script
+            try {
+                body = email.isHtml() ? folderPort.loadHtmlScript(email.getCuerpoMensaje()) : email.getCuerpoMensaje();
+                email.setFechaModificacion(new Date());
+                email.setStatus(Email.Status
+                                     .SENDED
+                                     .toString());
+                email.setCarpeta(body);
+                // Enviar correo
+                sendEmailAsync(email).thenAccept(x -> emailsSended.put(x, "OK"));
+                // Actualizar registro.
+                emailsSaved.put(emailPort.saveEmail(email), "OK");
+            } catch (AdapterException | ConstraintViolationException e) {
+                emailsSended.put(email, e.getMessage());
+                emailsSaved.put(email, e.getMessage());
+                e.printStackTrace();
             }
-
-            // Enviar correo
-            emailPort.sendEmail(email);
-            // Actualizar las fechas y el estado del registro del mensaje
-            Email e = email;
-            if (email.isNewMessage()) {
-                email =
-                    new Email(e.getEmailId(), e.getRemitente(), e.getDestinatario(), e.getCopiaCarbon(),
-                              e.getCopiaOculta(), e.getAsunto(), e.getCuerpoMensaje(), e.getOrigenMensaje(),
-                              e.getAdjunto1(), e.getAdjunto2(), e.getAdjunto3(), e.getCarpetaHtml(),
-                              e.getCodigoEmpresa(), e.getCodigoEmpresa(), e.getCodigoServidor(), e.getCodigoUsuario(),
-                              fechaRegistro, fechaRegistro, e.getMailOrigen(), Email.Status
-                                                                                    .SENDED
-                                                                                    .toString(), e.getTipo(),
-                              e.getUsuarioModificacion(), e.getUsuarioCreacion(), server);
-            } else {
-                email =
-                    new Email(e.getEmailId(), e.getRemitente(), e.getDestinatario(), e.getCopiaCarbon(),
-                              e.getCopiaOculta(), e.getAsunto(), e.getCuerpoMensaje(), e.getOrigenMensaje(),
-                              e.getAdjunto1(), e.getAdjunto2(), e.getAdjunto3(), e.getCarpetaHtml(),
-                              e.getCodigoEmpresa(), e.getCodigoEmpresa(), e.getCodigoServidor(), e.getCodigoUsuario(),
-                              e.getFechaCreacion(), fechaRegistro, e.getMailOrigen(), Email.Status
-                                                                                           .SENDED
-                                                                                           .toString(), e.getTipo(),
-                              e.getUsuarioModificacion(), e.getUsuarioCreacion(), server);
-            }
-
-            // Recopilar todos los mensajes enviados
-            emailsOutcome.add(emailPort.saveEmail(email));
         }
+        System.out.println(emailsSended.size() + " mensajes enviados.");
+        System.out.println(emailsSaved.size() + " mensajes actualizados.");
 
-        return emailsOutcome;
+        return new ArrayList<Email>(emailsSaved.keySet());
+    }
+
+    private CompletableFuture<Email> sendEmailAsync(Email email) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                return emailPort.sendEmail(email);
+            } catch (AdapterException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 }

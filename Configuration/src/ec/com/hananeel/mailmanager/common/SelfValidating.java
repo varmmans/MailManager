@@ -1,5 +1,7 @@
 package ec.com.hananeel.mailmanager.common;
 
+import ec.com.hananeel.mailmanager.qualifier.Component;
+
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -8,6 +10,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+@Component
 public abstract class SelfValidating<T> {
 
     private Validator validator;

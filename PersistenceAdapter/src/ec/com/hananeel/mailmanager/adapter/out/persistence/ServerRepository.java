@@ -1,35 +1,29 @@
 package ec.com.hananeel.mailmanager.adapter.out.persistence;
 
+import javax.annotation.Resource;
 
-import javax.enterprise.context.Dependent;
+import javax.ejb.Local;
+import javax.ejb.SessionContext;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-@Dependent
+@Stateless(name = "ServerRepository", mappedName = "ServerRepository")
+@Local
 public class ServerRepository {
-    private final EntityManager em;
+    @Resource
+    SessionContext sessionContext;
+    @PersistenceContext(unitName = "PersistenceAdapter")
+    private EntityManager em;
 
     public ServerRepository() {
-        final EntityManagerFactory emf = Persistence.createEntityManagerFactory("PersistenceAdapter");
-        em = emf.createEntityManager();
     }
 
-    /**
-     * All changes that have been made to the managed entities in the
-     * persistence context are applied to the database and committed.
-     */
-    public void commitTransaction() {
-        final EntityTransaction entityTransaction = em.getTransaction();
-        if (!entityTransaction.isActive()) {
-            entityTransaction.begin();
-        }
-        entityTransaction.commit();
-    }
-
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public Object queryByRange(String jpqlStmt, int firstResult, int maxResults) {
         Query query = em.createQuery(jpqlStmt);
         if (firstResult > 0) {
@@ -43,38 +37,15 @@ public class ServerRepository {
 
     public <T> T persistEntity(T entity) {
         em.persist(entity);
-        commitTransaction();
         return entity;
     }
 
     public <T> T mergeEntity(T entity) {
-        entity = em.merge(entity);
-        commitTransaction();
-        return entity;
+        return em.merge(entity);
     }
 
-    public ServerJpaEntity persistServidorJpaEntity(ServerJpaEntity servidorJpaEntity) {
-        em.persist(servidorJpaEntity);
-        commitTransaction();
-        return servidorJpaEntity;
-    }
-
-    public ServerJpaEntity mergeServidorJpaEntity(ServerJpaEntity servidorJpaEntity) {
-        ServerJpaEntity entity = null;
-        entity = em.merge(servidorJpaEntity);
-        commitTransaction();
-        return entity;
-    }
-
-    public void removeServidorJpaEntity(ServerJpaEntity servidorJpaEntity) {
-        servidorJpaEntity =
-            em.find(ServerJpaEntity.class,
-                    new ServerJpaEntityPK(servidorJpaEntity.getSercodemp(), servidorJpaEntity.getSercodser()));
-        em.remove(servidorJpaEntity);
-        commitTransaction();
-    }
-    
-    public ServerJpaEntity findServidorJpaEntity(ServerJpaEntityPK pk){
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public ServerJpaEntity findServerJpaEntity(ServerJpaEntityPK pk) {
         return em.find(ServerJpaEntity.class, pk);
     }
 }

@@ -58,25 +58,22 @@
       <value n="oracle.toplink.workbench.addin.migration.TopLinkProjectMigrator" v="11.1.1.1.0"/>
    </hash>
    <list n="contentSets">
+      <string v="oracle.jdeveloper.offlinedb.model.OfflineDBProjectSettings/offlineDBContentSet"/>
+      <string v="oracle.jdeveloper.model.J2eeSettings/webContentSet"/>
       <string v="oracle.mds.internal.dt.ide.MDSLibraryCustCSProvider/mdsContentSet"/>
       <string v="oracle.mds.internal.dt.ide.MDSADFLibVirtualNodeCSProvider/mdsLibVirtualNodeContentSet"/>
-      <string v="oracle.jdeveloper.model.J2eeSettings/webContentSet"/>
       <string v="oracle.jdeveloper.model.PathsConfiguration/javaContentSet"/>
       <string v="oracle.ide.model.ResourcePaths/resourcesContentSet"/>
-      <string v="oracle.jdeveloper.offlinedb.model.OfflineDBProjectSettings/offlineDBContentSet"/>
+      <string v="oracle.bm.commonIde.data.project.ModelerProjectSettings/modelersContentSet"/>
       <string v="oracle.adfdtinternal.model.ide.settings.ADFMSettings/adfmContentSet"/>
       <string v="oracle.toplink.workbench.addin/toplinkContentSet"/>
-      <string v="oracle.bm.commonIde.data.project.ModelerProjectSettings/modelersContentSet"/>
    </list>
-   <value n="defaultPackage" v="ec.com.hananeel.mailmanager.wsmailmanager001"/>
+   <value n="defaultPackage" v="ec.com.hananeel.mailmanager.adapter1"/>
    <hash n="ejbModuleContainer">
       <value n="dbConnection" v="Correos"/>
       <value n="ejbVersion" v="3.0"/>
       <value n="ejbVersionMinor" v="0.1"/>
-      <list n="serviceFacadeUrls">
-         <url path="src/ec/com/hananeel/mailmanager/adapter/out/repository/MensajeRepository.java"/>
-         <url path="src/ec/com/hananeel/mailmanager/adapter/out/repository/ServerRepository.java"/>
-      </list>
+      <url n="weblogicEjbJarNodeURL" path="src/META-INF/weblogic-ejb-jar.xml"/>
    </hash>
    <hash n="oracle.ide.model.DependencyConfiguration">
       <list n="dependencyList">
@@ -112,11 +109,9 @@
    </hash>
    <hash n="oracle.ide.model.TechnologyScopeConfiguration">
       <list n="technologyScope">
-         <string v="CDI"/>
          <string v="Database"/>
          <string v="EJB"/>
          <string v="Java"/>
-         <string v="RESTWebServices"/>
          <string v="TopLink"/>
          <string v="XML"/>
       </list>
@@ -125,8 +120,8 @@
       <value n="webIANAEncoding" v="windows-1252"/>
    </hash>
    <hash n="oracle.jdeveloper.model.J2eeSettings">
-      <value n="j2eeWebAppName" v="MailManagerApp-WSMailManager001-webapp"/>
-      <value n="j2eeWebContextRoot" v="MailManagerApp-WSMailManager001-context-root"/>
+      <value n="j2eeWebAppName" v="MailManagerApp-PersistenceAdapter1-webapp"/>
+      <value n="j2eeWebContextRoot" v="MailManagerApp-PersistenceAdapter1-context-root"/>
    </hash>
    <hash n="oracle.jdeveloper.model.PathsConfiguration">
       <hash n="javaContentSet">
@@ -140,10 +135,6 @@
    </hash>
    <hash n="oracle.jdevimpl.config.JProjectLibraries">
       <list n="exportedReferences">
-         <hash>
-            <value n="id" v="Contexts and Dependency Injection"/>
-            <value n="isJDK" v="false"/>
-         </hash>
          <hash>
             <value n="id" v="TopLink"/>
             <value n="isJDK" v="false"/>
@@ -161,11 +152,11 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Oracle JDBC"/>
+            <value n="id" v="Jsoup-1.13.1.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Jsoup-1.13.1.jar"/>
+            <value n="id" v="AQJMS"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>
@@ -184,10 +175,6 @@
       </hash>
       <list n="libraryReferences">
          <hash>
-            <value n="id" v="Contexts and Dependency Injection"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
             <value n="id" v="TopLink"/>
             <value n="isJDK" v="false"/>
          </hash>
@@ -204,11 +191,11 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Oracle JDBC"/>
+            <value n="id" v="Jsoup-1.13.1.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Jsoup-1.13.1.jar"/>
+            <value n="id" v="AQJMS"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>
@@ -220,11 +207,8 @@
       <hash n="persistence-list">
          <value n="jpa-version" v="2.0"/>
          <hash n="src$META-INF$persistence.xml">
-            <hash n="PersistenceAdapter">
-               <value n="development-database" v="Correos"/>
-            </hash>
-            <hash n="WSMailManager001">
-               <value n="development-database" v="Correos"/>
+            <hash n="PersistenceAdapter1">
+               <value n="development-database" v="IntegratedWebLogicServer_CorreosDatasource"/>
             </hash>
          </hash>
       </hash>

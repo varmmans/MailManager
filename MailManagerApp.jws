@@ -3,6 +3,9 @@
    <hash n="adrs-workspace-properties">
       <value n="adrs-instance-binding" v="DefaultServer"/>
    </hash>
+   <hash n="adrs-workspace-weblogic-properties">
+      <value n="hot-class-reload" v="ide-default"/>
+   </hash>
    <value n="application-package-prefix" v="ec.com.hananeel.mailmanager"/>
    <value n="appTemplateId" v="#genericApplicationTemplate"/>
    <hash n="appWebServicePolicy">
@@ -39,8 +42,69 @@
       <hash><url n="URL" path="Configuration/Configuration.jpr"/></hash>
       <hash><url n="URL" path="Domain/Domain.jpr"/></hash>
       <hash><url n="URL" path="PersistenceAdapter/PersistenceAdapter.jpr"/></hash>
+      <hash><url n="URL" path="ServletClient/ServletClient.jpr"/></hash>
       <hash><url n="URL" path="WebAdapter/WebAdapter.jpr"/></hash>
    </list>
+   <hash n="oracle.jdeveloper.deploy.dt.DeploymentProfiles">
+      <hash n="profileDefinitions">
+         <hash n="MailManagerApp_20210308">
+            <hash n="archiveOptions">
+               <value n="hasManifest" v="false"/>
+            </hash>
+            <url n="earURL" path="deploy/MailManagerApp_20210308.ear"/>
+            <value n="enterpriseAppName" v="MailManagerApp_20210308"/>
+            <hash n="fileGroups">
+               <list n="groups">
+                  <hash>
+                     <list n="contributors">
+                        <hash>
+                           <value n="type" v="9"/>
+                        </hash>
+                     </list>
+                     <value n="displayName" v="Application Descriptors"/>
+                     <hash n="filters">
+                        <list n="rules">
+                           <hash>
+                              <value n="pattern" v="**"/>
+                              <value n="type" v="0"/>
+                           </hash>
+                        </list>
+                     </hash>
+                     <value n="internalName" v="ear-metainf"/>
+                     <value n="type" v="1"/>
+                  </hash>
+                  <hash>
+                     <value n="displayName" v="Application Libraries"/>
+                     <hash n="filters">
+                        <list n="rules">
+                           <hash>
+                              <value n="pattern" v="**"/>
+                              <value n="type" v="0"/>
+                           </hash>
+                        </list>
+                     </hash>
+                     <value n="internalName" v="libraries"/>
+                     <value n="targetWithinJar" v="lib"/>
+                     <value n="type" v="3"/>
+                  </hash>
+               </list>
+            </hash>
+            <value n="profileClass" v="oracle.jdeveloper.deploy.ear.EarProfile"/>
+            <value n="profileName" v="MailManagerApp_20210308"/>
+            <hash n="properties">
+               <value n="" v=""/>
+            </hash>
+         </hash>
+      </hash>
+      <list n="profileList">
+         <string v="MailManagerApp_20210308"/>
+      </list>
+   </hash>
+   <hash n="oracle.jdeveloper.deploy.SecurityDeploymentSettings">
+      <value n="Security-Deployment-Overwrite-Application-Policies-Key" v="true"/>
+      <value n="Security-Deployment-Overwrite-Credentials-Key" v="true"/>
+      <value n="Security-Deployment-Update-Weblogic-Application-Key" v="true"/>
+   </hash>
    <hash n="oracle.jdeveloper.model.ApplicationLibraries">
       <hash n="internalDefinitions">
          <list n="libraryDefinitions"/>
@@ -55,5 +119,8 @@
             <url path="src/"/>
          </list>
       </hash>
+   </hash>
+   <hash n="Weblogic JDBC">
+      <value n="Weblogic-JDBC-Auto-Sync-Key" v="false"/>
    </hash>
 </jws:workspace>

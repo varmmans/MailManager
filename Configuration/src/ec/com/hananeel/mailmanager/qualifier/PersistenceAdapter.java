@@ -9,8 +9,8 @@ import java.lang.annotation.Target;
 @Retention(RUNTIME)
 @Target({ TYPE })
 @Documented
-@Indexed
-public @interface Component {
-    //@AliasFor(annotation = Stateless.class)
+@Component
+public @interface PersistenceAdapter {
+    @AliasFor(annotation = Component.class)
     String value() default "";
 }

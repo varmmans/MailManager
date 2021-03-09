@@ -1,0 +1,422 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<table xmlns="http://xmlns.oracle.com/jdeveloper/1211/offlinedb">
+  <name>SERVIDORES</name>
+  <columns>
+    <column>
+      <name>SERCODEMP</name>
+      <dataTypeUsage>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <typeName>NUMBER</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+      <properties>
+        <entry>
+          <key>Comment</key>
+          <value class="java.lang.String">codigo de empresa</value>
+        </entry>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>SERCODEMP</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>SERVIDORES</name>
+              <identifier class="java.math.BigDecimal">1169209</identifier>
+              <schemaName>ENVIA_CORREO</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+      </properties>
+    </column>
+    <column>
+      <name>SERCODSER</name>
+      <dataTypeUsage>
+        <attributeValues>
+          <entry>
+            <key>size</key>
+            <value class="java.lang.Long">50</value>
+          </entry>
+          <entry>
+            <key>unit</key>
+            <value class="java.lang.String">BYTE</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <typeName>VARCHAR2</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+      <properties>
+        <entry>
+          <key>Comment</key>
+          <value class="java.lang.String">codigo del servidor</value>
+        </entry>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>SERCODSER</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>SERVIDORES</name>
+              <identifier class="java.math.BigDecimal">1169209</identifier>
+              <schemaName>ENVIA_CORREO</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+      </properties>
+    </column>
+    <column>
+      <name>SERDIRREC</name>
+      <dataTypeUsage>
+        <attributeValues>
+          <entry>
+            <key>size</key>
+            <value class="java.lang.Long">100</value>
+          </entry>
+          <entry>
+            <key>unit</key>
+            <value class="java.lang.String">BYTE</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <typeName>VARCHAR2</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+      <properties>
+        <entry>
+          <key>Comment</key>
+          <value class="java.lang.String">direccion del servidor</value>
+        </entry>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>SERDIRREC</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>SERVIDORES</name>
+              <identifier class="java.math.BigDecimal">1169209</identifier>
+              <schemaName>ENVIA_CORREO</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+      </properties>
+    </column>
+    <column>
+      <name>SERNROPOR</name>
+      <dataTypeUsage>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <typeName>NUMBER</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+      <properties>
+        <entry>
+          <key>Comment</key>
+          <value class="java.lang.String">numero de puerto</value>
+        </entry>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>SERNROPOR</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>SERVIDORES</name>
+              <identifier class="java.math.BigDecimal">1169209</identifier>
+              <schemaName>ENVIA_CORREO</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+      </properties>
+    </column>
+    <column>
+      <name>SERUSUARI</name>
+      <dataTypeUsage>
+        <attributeValues>
+          <entry>
+            <key>size</key>
+            <value class="java.lang.Long">50</value>
+          </entry>
+          <entry>
+            <key>unit</key>
+            <value class="java.lang.String">BYTE</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <typeName>VARCHAR2</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+      <properties>
+        <entry>
+          <key>Comment</key>
+          <value class="java.lang.String">nombre del usuario</value>
+        </entry>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>SERUSUARI</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>SERVIDORES</name>
+              <identifier class="java.math.BigDecimal">1169209</identifier>
+              <schemaName>ENVIA_CORREO</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+      </properties>
+    </column>
+    <column>
+      <name>SERPASSWR</name>
+      <dataTypeUsage>
+        <attributeValues>
+          <entry>
+            <key>size</key>
+            <value class="java.lang.Long">50</value>
+          </entry>
+          <entry>
+            <key>unit</key>
+            <value class="java.lang.String">BYTE</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <typeName>VARCHAR2</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+      <properties>
+        <entry>
+          <key>Comment</key>
+          <value class="java.lang.String">clave de acceso al servidor</value>
+        </entry>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>SERPASSWR</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>SERVIDORES</name>
+              <identifier class="java.math.BigDecimal">1169209</identifier>
+              <schemaName>ENVIA_CORREO</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+      </properties>
+    </column>
+  </columns>
+  <constraints>
+    <constraint class="oracle.javatools.db.PKConstraint">
+      <name>PK_SERVIDORES</name>
+      <columnIDs>
+        <columnID class="oracle.javatools.db.NameBasedID">
+          <name>SERCODEMP</name>
+          <parent class="oracle.javatools.db.NameBasedID">
+            <name>SERVIDORES</name>
+            <schemaName>ENVIA_CORREO</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <schemaName>ENVIA_CORREO</schemaName>
+          <type>COLUMN</type>
+        </columnID>
+        <columnID class="oracle.javatools.db.NameBasedID">
+          <name>SERCODSER</name>
+          <parent class="oracle.javatools.db.NameBasedID">
+            <name>SERVIDORES</name>
+            <schemaName>ENVIA_CORREO</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <schemaName>ENVIA_CORREO</schemaName>
+          <type>COLUMN</type>
+        </columnID>
+      </columnIDs>
+      <enabled>true</enabled>
+      <indexID class="oracle.javatools.db.NameBasedID">
+        <name>PK_SERVIDORES</name>
+        <parent class="oracle.javatools.db.NameBasedID">
+          <name>SERVIDORES</name>
+          <schemaName>ENVIA_CORREO</schemaName>
+          <type>TABLE</type>
+        </parent>
+        <schemaName>ENVIA_CORREO</schemaName>
+        <type>INDEX</type>
+      </indexID>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>PK_SERVIDORES</name>
+            <childObjectNames>
+              <childObjectName>SERCODEMP</childObjectName>
+              <childObjectName>SERCODSER</childObjectName>
+            </childObjectNames>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>SERVIDORES</name>
+              <identifier class="java.math.BigDecimal">1169209</identifier>
+              <schemaName>ENVIA_CORREO</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <subType>PKConstraint</subType>
+            <type>CONSTRAINT</type>
+          </value>
+        </entry>
+      </properties>
+    </constraint>
+  </constraints>
+  <indexes>
+    <index>
+      <name>PK_SERVIDORES</name>
+      <columnExpressions>
+        <columnExpression>
+          <expressionSource>SERCODEMP</expressionSource>
+          <orderType>ASC</orderType>
+          <properties>
+            <entry>
+              <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+              <value class="oracle.javatools.db.ReferenceID">
+                <name>SERCODEMP</name>
+                <parent class="oracle.javatools.db.ReferenceID">
+                  <name>PK_SERVIDORES</name>
+                  <identifier class="java.math.BigDecimal">1169210</identifier>
+                  <parent class="oracle.javatools.db.ReferenceID">
+                    <name>SERVIDORES</name>
+                    <identifier class="java.math.BigDecimal">1169209</identifier>
+                    <schemaName>ENVIA_CORREO</schemaName>
+                    <type>TABLE</type>
+                  </parent>
+                  <schemaName>ENVIA_CORREO</schemaName>
+                  <type>INDEX</type>
+                </parent>
+                <type>IndexObject</type>
+              </value>
+            </entry>
+          </properties>
+        </columnExpression>
+        <columnExpression>
+          <expressionSource>SERCODSER</expressionSource>
+          <orderType>ASC</orderType>
+          <properties>
+            <entry>
+              <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+              <value class="oracle.javatools.db.ReferenceID">
+                <name>SERCODSER</name>
+                <parent class="oracle.javatools.db.ReferenceID">
+                  <name>PK_SERVIDORES</name>
+                  <identifier class="java.math.BigDecimal">1169210</identifier>
+                  <parent class="oracle.javatools.db.ReferenceID">
+                    <name>SERVIDORES</name>
+                    <identifier class="java.math.BigDecimal">1169209</identifier>
+                    <schemaName>ENVIA_CORREO</schemaName>
+                    <type>TABLE</type>
+                  </parent>
+                  <schemaName>ENVIA_CORREO</schemaName>
+                  <type>INDEX</type>
+                </parent>
+                <type>IndexObject</type>
+              </value>
+            </entry>
+          </properties>
+        </columnExpression>
+      </columnExpressions>
+      <indexType>UNIQUE</indexType>
+      <parallelDegree>1</parallelDegree>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>PK_SERVIDORES</name>
+            <identifier class="java.math.BigDecimal">1169210</identifier>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>SERVIDORES</name>
+              <identifier class="java.math.BigDecimal">1169209</identifier>
+              <schemaName>ENVIA_CORREO</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <schemaName>ENVIA_CORREO</schemaName>
+            <type>INDEX</type>
+          </value>
+        </entry>
+        <entry>
+          <key>OracleStorageProperties</key>
+          <value class="oracle.javatools.db.ora.OracleStorageProperties">
+            <bufferMode>DEFAULT</bufferMode>
+            <initialExtent>65536</initialExtent>
+            <initrans>2</initrans>
+            <logging>true</logging>
+            <maxExtent>0</maxExtent>
+            <minExtent>1</minExtent>
+            <nextExtent>1048576</nextExtent>
+            <percentFree>10</percentFree>
+            <tablespaceID class="oracle.javatools.db.ReferenceID">
+              <name>USERS</name>
+              <type>TABLESPACE</type>
+            </tablespaceID>
+          </value>
+        </entry>
+      </properties>
+      <reverse>false</reverse>
+      <schema>
+        <name>ENVIA_CORREO</name>
+      </schema>
+      <systemGenerated>true</systemGenerated>
+    </index>
+  </indexes>
+  <properties>
+    <entry>
+      <key>OfflineDBConstants.IMPORT_SOURCE_CONNECTION</key>
+      <value class="java.lang.String">jdbc/CorreosDS</value>
+    </entry>
+    <entry>
+      <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+      <value class="oracle.javatools.db.ReferenceID">
+        <name>SERVIDORES</name>
+        <identifier class="java.math.BigDecimal">1169209</identifier>
+        <schemaName>ENVIA_CORREO</schemaName>
+        <type>TABLE</type>
+      </value>
+    </entry>
+    <entry>
+      <key>OracleInMemoryProperties</key>
+      <value class="oracle.javatools.db.ora.OracleInMemoryProperties">
+        <inMemory>false</inMemory>
+      </value>
+    </entry>
+    <entry>
+      <key>OracleStorageProperties</key>
+      <value class="oracle.javatools.db.ora.OracleStorageProperties">
+        <bufferMode>DEFAULT</bufferMode>
+        <initialExtent>65536</initialExtent>
+        <initrans>1</initrans>
+        <logging>true</logging>
+        <maxExtent>0</maxExtent>
+        <minExtent>1</minExtent>
+        <nextExtent>1048576</nextExtent>
+        <percentFree>10</percentFree>
+        <tablespaceID class="oracle.javatools.db.ReferenceID">
+          <name>USERS</name>
+          <type>TABLESPACE</type>
+        </tablespaceID>
+      </value>
+    </entry>
+    <entry>
+      <key>OracleTableProperties</key>
+      <value class="oracle.javatools.db.ora.OracleTableProperties">
+        <parallelDegree>1</parallelDegree>
+        <tableCompression>NOCOMPRESS</tableCompression>
+      </value>
+    </entry>
+    <entry>
+      <key>TableType</key>
+      <value class="oracle.javatools.db.Table$TableType">NORMAL</value>
+    </entry>
+  </properties>
+  <schema>
+    <name>ENVIA_CORREO</name>
+  </schema>
+</table>

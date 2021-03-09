@@ -2,70 +2,79 @@ package ec.com.hananeel.mailmanager.adapter.out.persistence;
 
 import java.io.Serializable;
 
+import java.math.BigInteger;
+
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 @Entity
 @NamedQueries({ @NamedQuery(name = "ServerJpaEntity.findAll", query = "select o from ServerJpaEntity o") })
 @Table(name = "SERVIDORES")
-@IdClass(ServerJpaEntityPK.class)
-@SuppressWarnings("oracle.jdeveloper.ejb.entity-class-auto-id-gen")
 public class ServerJpaEntity implements Serializable {
-    @SuppressWarnings("compatibility:4490655167391106211")
+
     private static final long serialVersionUID = 1L;
-    @Id
-    @Column(nullable = false)
-    private Number sercodemp;
-    @Id
-    @Column(nullable = false, length = 50)
-    private String sercodser;
-    @Column(nullable = false, length = 100)
+    @EmbeddedId
+    protected ServerJpaEntityPK serverJpaEntityPK;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "SERDIRREC")
     private String serdirrec;
-    @Column(nullable = false)
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "SERNROPOR")
     private Integer sernropor;
-    @Column(nullable = false, length = 50)
-    private String serpasswr;
-    @Column(nullable = false, length = 50)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "SERUSUARI")
     private String serusuari;
-    @OneToMany(mappedBy = "servidor", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    private List<EmailJpaEntity> mensajes;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "SERPASSWR")
+    private String serpasswr;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "serverJpaEntity")
+    private List<EmailJpaEntity> emailJpaEntityList;
 
     public ServerJpaEntity() {
     }
 
-    public ServerJpaEntity(Number sercodemp, String sercodser, String serdirrec, Integer sernropor, String serpasswr,
-                           String serusuari) {
-        this.sercodemp = sercodemp;
-        this.sercodser = sercodser;
+    public ServerJpaEntity(ServerJpaEntityPK serverJpaEntityPK) {
+        this.serverJpaEntityPK = serverJpaEntityPK;
+    }
+
+    public ServerJpaEntity(ServerJpaEntityPK serverJpaEntityPK, String serdirrec, Integer sernropor, String serusuari,
+                           String serpasswr) {
+        this.serverJpaEntityPK = serverJpaEntityPK;
         this.serdirrec = serdirrec;
         this.sernropor = sernropor;
-        this.serpasswr = serpasswr;
         this.serusuari = serusuari;
+        this.serpasswr = serpasswr;
     }
 
-    public Number getSercodemp() {
-        return sercodemp;
+    public ServerJpaEntity(BigInteger sercodemp, String sercodser) {
+        this.serverJpaEntityPK = new ServerJpaEntityPK(sercodemp, sercodser);
     }
 
-    public void setSercodemp(Number sercodemp) {
-        this.sercodemp = sercodemp;
+    public ServerJpaEntityPK getServerJpaEntityPK() {
+        return serverJpaEntityPK;
     }
 
-    public String getSercodser() {
-        return sercodser;
-    }
-
-    public void setSercodser(String sercodser) {
-        this.sercodser = sercodser;
+    public void setServerJpaEntityPK(ServerJpaEntityPK serverJpaEntityPK) {
+        this.serverJpaEntityPK = serverJpaEntityPK;
     }
 
     public String getSerdirrec() {
@@ -84,14 +93,6 @@ public class ServerJpaEntity implements Serializable {
         this.sernropor = sernropor;
     }
 
-    public String getSerpasswr() {
-        return serpasswr;
-    }
-
-    public void setSerpasswr(String serpasswr) {
-        this.serpasswr = serpasswr;
-    }
-
     public String getSerusuari() {
         return serusuari;
     }
@@ -100,23 +101,47 @@ public class ServerJpaEntity implements Serializable {
         this.serusuari = serusuari;
     }
 
-    public List<EmailJpaEntity> getMensajes() {
-        return mensajes;
+    public String getSerpasswr() {
+        return serpasswr;
     }
 
-    public void setMensajes(List<EmailJpaEntity> mensajes) {
-        this.mensajes = mensajes;
+    public void setSerpasswr(String serpasswr) {
+        this.serpasswr = serpasswr;
     }
 
-    public EmailJpaEntity addMensajePersistenceAdapter(EmailJpaEntity mensajePersistenceAdapter) {
-        getMensajes().add(mensajePersistenceAdapter);
-        mensajePersistenceAdapter.setServidor(this);
-        return mensajePersistenceAdapter;
+    public List<EmailJpaEntity> getEmailJpaEntityList() {
+        return emailJpaEntityList;
     }
 
-    public EmailJpaEntity removeMensajePersistenceAdapter(EmailJpaEntity mensajePersistenceAdapter) {
-        getMensajes().remove(mensajePersistenceAdapter);
-        mensajePersistenceAdapter.setServidor(null);
-        return mensajePersistenceAdapter;
+    public void setEmailJpaEntityList(List<EmailJpaEntity> emailJpaEntityList) {
+        this.emailJpaEntityList = emailJpaEntityList;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (serverJpaEntityPK != null ? serverJpaEntityPK.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof ServerJpaEntity)) {
+            return false;
+        }
+        ServerJpaEntity other = (ServerJpaEntity) object;
+        if ((this.serverJpaEntityPK == null && other.serverJpaEntityPK != null) ||
+            (this.serverJpaEntityPK != null && !this.serverJpaEntityPK.equals(other.serverJpaEntityPK))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "ec.com.hananeel.mailmanager.adapter.out.persistence.Servidores[ servidoresPK=" + serverJpaEntityPK +
+               " ]";
+    }
+
 }

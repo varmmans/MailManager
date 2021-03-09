@@ -2,14 +2,12 @@ package ec.com.hananeel.mailmanager.adapter.out.persistence;
 
 import java.io.Serializable;
 
-import java.math.BigDecimal;
-
 import java.util.Date;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
@@ -19,123 +17,162 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 @Entity
-@NamedQueries({ @NamedQuery(name = "EmailJpaEntity.findAll", query = "select o from EmailJpaEntity o") })
+@NamedQueries({ @NamedQuery(name = "EmailJpaEntity.findAll", query = "select o from EmailJpaEntity o"),
+                @NamedQuery(name = "EmailJpaEntity.findByStatus",
+                            query = "select o from EmailJpaEntity o where o.messtatus = :messtatus")
+    })
 @Table(name = "MENSAJES")
-@IdClass(EmailJpaEntityPK.class)
-@SuppressWarnings("oracle.jdeveloper.ejb.entity-class-auto-id-gen")
 public class EmailJpaEntity implements Serializable {
-    @SuppressWarnings("compatibility:-8753345298167438335")
+
     private static final long serialVersionUID = 1L;
-    @Column(length = 500)
-    private String mesasunto;
-    @Column(length = 4000)
-    private String mescarpet;
-    @Id
-    @Column(nullable = false)
-    private Number mescodmes;
-    @Column(nullable = false)
+    @EmbeddedId
+    protected EmailJpaEntityPK emailJpaEntityPK;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "MESCODREL")
     private Number mescodrel;
-    @Column(nullable = false, length = 50)
-    private String mescodser;
-    @Column(nullable = false, length = 50)
-    private String mescoduse;
-    @Column(length = 4000)
-    private String mescuerpo;
-    @Temporal(TemporalType.DATE)
-    @Column(nullable = false)
-    private Date mesfecmod;
-    @Temporal(TemporalType.DATE)
-    @Column(nullable = false)
-    private Date mesfecnew;
-    @Column(length = 500)
-    private String mesmailcc;
-    @Column(length = 500)
-    private String mesmailco;
-    @Column(nullable = false, length = 500)
-    private String mesmailto;
-    @Column(nullable = false, length = 500)
-    private String mesnombre;
-    @Column(nullable = false, length = 50)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "MESORIGEN")
     private String mesorigen;
-    @Column(length = 4000)
-    private String messatt01;
-    @Column(length = 4000)
-    private String messatt02;
-    @Column(length = 4000)
-    private String messatt03;
-    @Column(nullable = false, length = 500)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "MESCODUSE")
+    private String mescoduse;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "MESCODSER")
+    private String mescodser;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 500)
+    @Column(name = "MESNOMBRE")
+    private String mesnombre;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 500)
+    @Column(name = "MESSENDER")
     private String messender;
-    @Column(nullable = false, length = 1)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 500)
+    @Column(name = "MESMAILTO")
+    private String mesmailto;
+    @Size(max = 500)
+    @Column(name = "MESMAILCC")
+    private String mesmailcc;
+    @Size(max = 500)
+    @Column(name = "MESMAILCO")
+    private String mesmailco;
+    @Size(max = 500)
+    @Column(name = "MESASUNTO")
+    private String mesasunto;
+    @Size(max = 4000)
+    @Column(name = "MESCUERPO")
+    private String mescuerpo;
+    @Size(max = 4000)
+    @Column(name = "MESCARPET")
+    private String mescarpet;
+    @Size(max = 4000)
+    @Column(name = "MESSATT01")
+    private String messatt01;
+    @Size(max = 4000)
+    @Column(name = "MESSATT02")
+    private String messatt02;
+    @Size(max = 4000)
+    @Column(name = "MESSATT03")
+    private String messatt03;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 1)
+    @Column(name = "MESSTATUS")
     private String messtatus;
-    @Column(nullable = false, length = 1)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 1)
+    @Column(name = "MESSTATUT")
     private String messtatut;
-    @Column(nullable = false, length = 50)
-    private String mesusemod;
-    @Column(nullable = false, length = 50)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "MESUSENEW")
     private String mesusenew;
-    @ManyToOne
-    @JoinColumns({ @JoinColumn(name = "MESCODEMP", referencedColumnName = "SERCODEMP"),
-                   @JoinColumn(name = "MESSERVER", referencedColumnName = "SERCODSER")
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "MESFECNEW")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date mesfecnew;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "MESUSEMOD")
+    private String mesusemod;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "MESFECMOD")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date mesfecmod;
+    @JoinColumns({ @JoinColumn(name = "MESCODEMP", referencedColumnName = "SERCODEMP", insertable = false,
+                               updatable = false), @JoinColumn(name = "MESSERVER", referencedColumnName = "SERCODSER")
         })
-    private ServerJpaEntity servidor;
+    @ManyToOne(optional = false)
+    private ServerJpaEntity serverJpaEntity;
 
     public EmailJpaEntity() {
     }
 
-    public EmailJpaEntity(String mesasunto, String mescarpet, ServerJpaEntity servidor, Number mescodmes,
-                          Number mescodrel, String mescodser, String mescoduse, String mescuerpo, Date mesfecmod,
-                          Date mesfecnew, String mesmailcc, String mesmailco, String mesmailto, String mesnombre,
-                          String mesorigen, String messatt01, String messatt02, String messatt03, String messender,
-                          String messtatus, String messtatut, String mesusemod, String mesusenew) {
-        this.mesasunto = mesasunto;
-        this.mescarpet = mescarpet;
-        this.servidor = servidor;
-        this.mescodmes = mescodmes;
+    public EmailJpaEntity(EmailJpaEntityPK mensajesPK) {
+        this.emailJpaEntityPK = mensajesPK;
+    }
+
+
+    public EmailJpaEntity(EmailJpaEntityPK emailJpaEntityPK, Number mescodrel, String mesorigen, String mescoduse,
+                          String mescodser, String mesnombre, String messender, String mesmailto, String mesmailcc,
+                          String mesmailco, String mesasunto, String mescuerpo, String mescarpet, String messatt01,
+                          String messatt02, String messatt03, String messtatus, String messtatut, String mesusenew,
+                          Date mesfecnew, String mesusemod, Date mesfecmod, ServerJpaEntity serverJpaEntity) {
+        this.emailJpaEntityPK = emailJpaEntityPK;
         this.mescodrel = mescodrel;
-        this.mescodser = mescodser;
+        this.mesorigen = mesorigen;
         this.mescoduse = mescoduse;
-        this.mescuerpo = mescuerpo;
-        this.mesfecmod = mesfecmod;
-        this.mesfecnew = mesfecnew;
+        this.mescodser = mescodser;
+        this.mesnombre = mesnombre;
+        this.messender = messender;
+        this.mesmailto = mesmailto;
         this.mesmailcc = mesmailcc;
         this.mesmailco = mesmailco;
-        this.mesmailto = mesmailto;
-        this.mesnombre = mesnombre;
-        this.mesorigen = mesorigen;
+        this.mesasunto = mesasunto;
+        this.mescuerpo = mescuerpo;
+        this.mescarpet = mescarpet;
         this.messatt01 = messatt01;
         this.messatt02 = messatt02;
         this.messatt03 = messatt03;
-        this.messender = messender;
         this.messtatus = messtatus;
         this.messtatut = messtatut;
-        this.mesusemod = mesusemod;
         this.mesusenew = mesusenew;
+        this.mesfecnew = mesfecnew;
+        this.mesusemod = mesusemod;
+        this.mesfecmod = mesfecmod;
+        this.serverJpaEntity = serverJpaEntity;
     }
 
-    public String getMesasunto() {
-        return mesasunto;
+    public EmailJpaEntity(Number mescodemp, Number mescodmes) {
+        this.emailJpaEntityPK = new EmailJpaEntityPK(mescodemp, mescodmes);
     }
 
-    public void setMesasunto(String mesasunto) {
-        this.mesasunto = mesasunto;
+    public EmailJpaEntityPK getEmailJpaEntityPK() {
+        return emailJpaEntityPK;
     }
 
-    public String getMescarpet() {
-        return mescarpet;
-    }
-
-    public void setMescarpet(String mescarpet) {
-        this.mescarpet = mescarpet;
-    }
-
-
-    public Number getMescodmes() {
-        return mescodmes;
-    }
-
-    public void setMescodmes(Number mescodmes) {
-        this.mescodmes = mescodmes;
+    public void setEmailJpaEntityPK(EmailJpaEntityPK emailJpaEntityPK) {
+        this.emailJpaEntityPK = emailJpaEntityPK;
     }
 
     public Number getMescodrel() {
@@ -146,12 +183,12 @@ public class EmailJpaEntity implements Serializable {
         this.mescodrel = mescodrel;
     }
 
-    public String getMescodser() {
-        return mescodser;
+    public String getMesorigen() {
+        return mesorigen;
     }
 
-    public void setMescodser(String mescodser) {
-        this.mescodser = mescodser;
+    public void setMesorigen(String mesorigen) {
+        this.mesorigen = mesorigen;
     }
 
     public String getMescoduse() {
@@ -162,28 +199,36 @@ public class EmailJpaEntity implements Serializable {
         this.mescoduse = mescoduse;
     }
 
-    public String getMescuerpo() {
-        return mescuerpo;
+    public String getMescodser() {
+        return mescodser;
     }
 
-    public void setMescuerpo(String mescuerpo) {
-        this.mescuerpo = mescuerpo;
+    public void setMescodser(String mescodser) {
+        this.mescodser = mescodser;
     }
 
-    public Date getMesfecmod() {
-        return mesfecmod;
+    public String getMesnombre() {
+        return mesnombre;
     }
 
-    public void setMesfecmod(Date mesfecmod) {
-        this.mesfecmod = mesfecmod;
+    public void setMesnombre(String mesnombre) {
+        this.mesnombre = mesnombre;
     }
 
-    public Date getMesfecnew() {
-        return mesfecnew;
+    public String getMessender() {
+        return messender;
     }
 
-    public void setMesfecnew(Date mesfecnew) {
-        this.mesfecnew = mesfecnew;
+    public void setMessender(String messender) {
+        this.messender = messender;
+    }
+
+    public String getMesmailto() {
+        return mesmailto;
+    }
+
+    public void setMesmailto(String mesmailto) {
+        this.mesmailto = mesmailto;
     }
 
     public String getMesmailcc() {
@@ -202,28 +247,28 @@ public class EmailJpaEntity implements Serializable {
         this.mesmailco = mesmailco;
     }
 
-    public String getMesmailto() {
-        return mesmailto;
+    public String getMesasunto() {
+        return mesasunto;
     }
 
-    public void setMesmailto(String mesmailto) {
-        this.mesmailto = mesmailto;
+    public void setMesasunto(String mesasunto) {
+        this.mesasunto = mesasunto;
     }
 
-    public String getMesnombre() {
-        return mesnombre;
+    public String getMescuerpo() {
+        return mescuerpo;
     }
 
-    public void setMesnombre(String mesnombre) {
-        this.mesnombre = mesnombre;
+    public void setMescuerpo(String mescuerpo) {
+        this.mescuerpo = mescuerpo;
     }
 
-    public String getMesorigen() {
-        return mesorigen;
+    public String getMescarpet() {
+        return mescarpet;
     }
 
-    public void setMesorigen(String mesorigen) {
-        this.mesorigen = mesorigen;
+    public void setMescarpet(String mescarpet) {
+        this.mescarpet = mescarpet;
     }
 
     public String getMessatt01() {
@@ -250,15 +295,6 @@ public class EmailJpaEntity implements Serializable {
         this.messatt03 = messatt03;
     }
 
-    public String getMessender() {
-        return messender;
-    }
-
-    public void setMessender(String messender) {
-        this.messender = messender;
-    }
-
-
     public String getMesstatus() {
         return messtatus;
     }
@@ -275,14 +311,6 @@ public class EmailJpaEntity implements Serializable {
         this.messtatut = messtatut;
     }
 
-    public String getMesusemod() {
-        return mesusemod;
-    }
-
-    public void setMesusemod(String mesusemod) {
-        this.mesusemod = mesusemod;
-    }
-
     public String getMesusenew() {
         return mesusenew;
     }
@@ -291,11 +319,62 @@ public class EmailJpaEntity implements Serializable {
         this.mesusenew = mesusenew;
     }
 
-    public ServerJpaEntity getServidor() {
-        return servidor;
+    public Date getMesfecnew() {
+        return mesfecnew;
     }
 
-    public void setServidor(ServerJpaEntity servidor) {
-        this.servidor = servidor;
+    public void setMesfecnew(Date mesfecnew) {
+        this.mesfecnew = mesfecnew;
     }
+
+    public String getMesusemod() {
+        return mesusemod;
+    }
+
+    public void setMesusemod(String mesusemod) {
+        this.mesusemod = mesusemod;
+    }
+
+    public Date getMesfecmod() {
+        return mesfecmod;
+    }
+
+    public void setMesfecmod(Date mesfecmod) {
+        this.mesfecmod = mesfecmod;
+    }
+
+    public ServerJpaEntity getServerJpaEntity() {
+        return serverJpaEntity;
+    }
+
+    public void setServerJpaEntity(ServerJpaEntity serverJpaEntity) {
+        this.serverJpaEntity = serverJpaEntity;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (emailJpaEntityPK != null ? emailJpaEntityPK.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof EmailJpaEntity)) {
+            return false;
+        }
+        EmailJpaEntity other = (EmailJpaEntity) object;
+        if ((this.emailJpaEntityPK == null && other.emailJpaEntityPK != null) ||
+            (this.emailJpaEntityPK != null && !this.emailJpaEntityPK.equals(other.emailJpaEntityPK))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "ec.com.hananeel.mailmanager.adapter.out.persistence.Mensajes[ mensajesPK=" + emailJpaEntityPK + " ]";
+    }
+
 }

@@ -68,11 +68,20 @@
       <string v="oracle.toplink.workbench.addin/toplinkContentSet"/>
       <string v="oracle.bm.commonIde.data.project.ModelerProjectSettings/modelersContentSet"/>
    </list>
-   <value n="defaultPackage" v="ec.com.hananeel.mailmanager.factory"/>
+   <value n="defaultPackage" v="ec.com.hananeel.mailmanager.common"/>
+   <hash n="ejbModuleContainer">
+      <value n="dbConnection" v="Correos"/>
+      <value n="ejbMetaDataPrefs" v="PREFASANNON"/>
+      <value n="ejbVersion" v="3.0"/>
+      <value n="ejbVersionMinor" v="0.1"/>
+   </hash>
    <hash n="oracle.ide.model.TechnologyScopeConfiguration">
       <list n="technologyScope">
          <string v="CDI"/>
+         <string v="Database"/>
+         <string v="EJB"/>
          <string v="Java"/>
+         <string v="TopLink"/>
          <string v="XML"/>
       </list>
    </hash>
@@ -117,5 +126,10 @@
    </hash>
    <hash n="oracle.jdevimpl.config.JProjectPaths">
       <url n="outputDirectory" path="classes/"/>
+   </hash>
+   <hash n="oracle.toplink.workbench.addin">
+      <hash n="persistence-list">
+         <value n="jpa-version" v="2.0"/>
+      </hash>
    </hash>
 </jpr:project>

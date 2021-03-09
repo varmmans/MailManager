@@ -3,41 +3,36 @@ package ec.com.hananeel.mailmanager.adapter.in.web;
 import ec.com.hananeel.mailmanager.application.port.in.SendEmailUseCase;
 import ec.com.hananeel.mailmanager.exception.ApplicationException;
 import ec.com.hananeel.mailmanager.exception.ControllerException;
+import ec.com.hananeel.mailmanager.qualifier.WebAdapter;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.enterprise.inject.Any;
-import javax.enterprise.inject.Instance;
+import javax.enterprise.context.RequestScoped;
 
 import javax.inject.Inject;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/")
+@Path("send")
+@RequestScoped
+@WebAdapter
 public class SendEmailController {
 
     @Inject
-    @Any
-    Instance<SendEmailUseCase> proxy;
-    //private SendEmailUseCase sendEmailUseCase;
+    private SendEmailUseCase sendEmailUseCase;
 
-    /* public SendEmailController(SendEmailUseCase sendEmailUseCase) {
-        this.sendEmailUseCase = sendEmailUseCase;
-    } */
+    public SendEmailController() {
 
-    @POST
-    @Path("/send")
-    @Consumes(MediaType.APPLICATION_JSON)
+    }
+
+    @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response sendEmail(String postData) throws ControllerException {
-        SendEmailUseCase sendEmailUseCase = proxy.select().get();
-
+    public Response sendEmail() throws ControllerException {
         SendEmailUseCase.SendEmailCommand command = new SendEmailUseCase.SendEmailCommand();
         List<String> ids;
         try {
@@ -51,7 +46,7 @@ public class SendEmailController {
             throw new ControllerException(e);
         }
 
-        String output = "Mail Manager 1.0: " + ids.size() + " correos enviados exitosamente.";
+        String output = "[Mail Manager 1.0]: " + ids.size() + " correos enviados exitosamente.";
         return Response.status(200)
                        .entity(output)
                        .build();
